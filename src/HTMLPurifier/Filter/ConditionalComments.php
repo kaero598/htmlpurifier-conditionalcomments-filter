@@ -51,8 +51,8 @@ class ConditionalComments extends HTMLPurifier_Filter {
 		];
 
 		$replace = [
-			'<div class="conditional-comment-open">$1</div>',
-		    '<div class="conditional-comment-close">$1</div>',
+			'<span class="conditional-comment-open">$1</span>',
+		    '<span class="conditional-comment-close">$1</span>',
 		];
 
 		return preg_replace($regex, $replace, $html);
@@ -69,8 +69,8 @@ class ConditionalComments extends HTMLPurifier_Filter {
 	 */
 	public function postFilter($html, $config, $context) {
 		$regex = [
-			'#<div class="conditional-comment-open">(.*?)</div>#',
-			'#<div class="conditional-comment-close">(.*?)</div>#',
+			'#<span class="conditional-comment-open">(.*?)</span>#',
+			'#<span class="conditional-comment-close">(.*?)</span>#',
 		];
 
 		$replace = [
