@@ -1,4 +1,4 @@
-# IE conditional comments filter for HTMLPurifier
+# IE conditional comments filter for <a href="https://github.com/ezyang/htmlpurifier">HTMLPurifier</a>
 
 HTMLPurifier always removes IE conditional comments from HTML and there is no way to alter that behavior without touching the sources.
 
@@ -12,7 +12,7 @@ Conditional comments filter disguises IE conditional comments as plain tags and 
 $config = HTMLPurifier_Config::createDefault();
 
 $config->set('Filter.Custom', [
-	new HTMLCleaner\Filter\ConditionalComments
+	new HTMLCleaner\Filter\ConditionalComments(),
 ]);
 
 $purifier = new HTMLPurifier($config);
