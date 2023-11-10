@@ -70,11 +70,17 @@ class ConditionalCommentsTest extends TestCase {
 	public function htmlProvider() {
 		return [[
 			'<div><!--[if IE]><table><tr><td><![endif]-->Content<!--[if IE]></td></tr></table><![endif]--></div>',
-			'<div><span class="conditional-comment-open">if IE</span><table><tr><td><span class="conditional-comment-close">endif</span>Content<span class="conditional-comment-open">if IE</span></td></tr></table><span class="conditional-comment-close">endif</span></div>',
+			'<div><span class="conditional-comment-open--hidden">if IE</span><table><tr><td><span class="conditional-comment-close--hidden">endif</span>Content<span class="conditional-comment-open--hidden">if IE</span></td></tr></table><span class="conditional-comment-close--hidden">endif</span></div>',
 		], [
 			'<div><a href="#"><!--[if gte mso 9]>&nbsp;<![endif]-->Click me baby! One more time<!--[if gte mso 9]>&nbsp;<![endif]--></a></div>',
-		    '<div><a href="#"><span class="conditional-comment-open">if gte mso 9</span>&nbsp;<span class="conditional-comment-close">endif</span>Click me baby! One more time<span class="conditional-comment-open">if gte mso 9</span>&nbsp;<span class="conditional-comment-close">endif</span></a></div>',
-		]];
+		    '<div><a href="#"><span class="conditional-comment-open--hidden">if gte mso 9</span>&nbsp;<span class="conditional-comment-close--hidden">endif</span>Click me baby! One more time<span class="conditional-comment-open--hidden">if gte mso 9</span>&nbsp;<span class="conditional-comment-close--hidden">endif</span></a></div>',
+		], [
+            '<div><p><!--[if !mso]>-->Storm, earth and fire — heed my call!<!--<![endif]--></p></div>',
+            '<div><p><span class="conditional-comment-open--revealed-2">if !mso</span>Storm, earth and fire — heed my call!<span class="conditional-comment-close--revealed">endif</span></p></div>',
+        ], [
+            '<div><p>Don\'t you have<!--[if !mso]><!--> a kingdom<!--<![endif]--> to run?</p></div>',
+            '<div><p>Don\'t you have<span class="conditional-comment-open--revealed-1">if !mso</span> a kingdom<span class="conditional-comment-close--revealed">endif</span> to run?</p></div>',
+        ]];
 	}
 
 }
