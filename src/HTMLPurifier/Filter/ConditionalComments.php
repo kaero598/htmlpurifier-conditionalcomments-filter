@@ -48,19 +48,21 @@ class ConditionalComments extends HTMLPurifier_Filter {
 		$regex = [
 			'#<!--\[([^]]+)]><!-->#',
 			'#<!--\[([^]]+)]>-->#',
-			'#<!--<!\[([^]]+)]-->#',
-
 			'#<!--\[([^]]+)]>#',
+
+			'#<!--<!\[([^]]+)]-->#',
 			'#<!\[([^]]+)]-->#',
+			'#<\[([^]]+)]-->#',
 		];
 
 		$replace = [
 			'<span class="conditional-comment-open--revealed-1">$1</span>',
 			'<span class="conditional-comment-open--revealed-2">$1</span>',
-			'<span class="conditional-comment-close--revealed">$1</span>',
-
 			'<span class="conditional-comment-open--hidden">$1</span>',
-			'<span class="conditional-comment-close--hidden">$1</span>',
+
+			'<span class="conditional-comment-close--revealed">$1</span>',
+			'<span class="conditional-comment-close--hidden-1">$1</span>',
+			'<span class="conditional-comment-close--hidden-2">$1</span>',
 		];
 
 		return preg_replace($regex, $replace, $html);
@@ -79,19 +81,21 @@ class ConditionalComments extends HTMLPurifier_Filter {
 		$regex = [
 			'#<span class="conditional-comment-open--revealed-1">(.*?)</span>#',
 			'#<span class="conditional-comment-open--revealed-2">(.*?)</span>#',
-			'#<span class="conditional-comment-close--revealed">(.*?)</span>#',
-
 			'#<span class="conditional-comment-open--hidden">(.*?)</span>#',
-			'#<span class="conditional-comment-close--hidden">(.*?)</span>#',
+
+			'#<span class="conditional-comment-close--revealed">(.*?)</span>#',
+			'#<span class="conditional-comment-close--hidden-1">(.*?)</span>#',
+			'#<span class="conditional-comment-close--hidden-2">(.*?)</span>#',
 		];
 
 		$replace = [
 			'<!--[$1]><!-->',
 			'<!--[$1]>-->',
-			'<!--<![$1]-->',
-
 			'<!--[$1]>',
+
+			'<!--<![$1]-->',
 			'<![$1]-->',
+			'<[$1]-->',
 		];
 
 		return preg_replace($regex, $replace, $html);
