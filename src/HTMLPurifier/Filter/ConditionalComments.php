@@ -5,6 +5,7 @@ namespace HTMLPurifier\Filter;
 use HTMLPurifier_Config;
 use HTMLPurifier_Context;
 use HTMLPurifier_Filter;
+use RuntimeException;
 
 /**
  * Custom HTMLPurifier filter for IE conditional comments
@@ -49,7 +50,13 @@ class ConditionalComments extends HTMLPurifier_Filter
             '<span class="conditional-comment-close--hidden-2">$1</span>',
         ];
 
-        return preg_replace($regex, $replace, $html);
+        $result = preg_replace($regex, $replace, $html);
+
+        if ($result === null) {
+            throw new RuntimeException('PCRE error: ' . preg_last_error_msg());
+        }
+
+        return $result;
     }
 
     /**
@@ -83,6 +90,12 @@ class ConditionalComments extends HTMLPurifier_Filter
             '<[$1]-->',
         ];
 
-        return preg_replace($regex, $replace, $html);
+        $result = preg_replace($regex, $replace, $html);
+
+        if ($result === null) {
+            throw new RuntimeException('PCRE error: ' . preg_last_error_msg());
+        }
+
+        return $result;
     }
 }
