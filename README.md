@@ -12,7 +12,7 @@ Conditional comments filter disguises IE conditional comments as plain tags and 
 $config = HTMLPurifier_Config::createDefault();
 
 $config->set('Filter.Custom', [
-	new HTMLCleaner\Filter\ConditionalComments(),
+    new HTMLCleaner\Filter\ConditionalComments(),
 ]);
 
 $purifier = new HTMLPurifier($config);
